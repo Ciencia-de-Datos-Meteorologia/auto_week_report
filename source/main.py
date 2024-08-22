@@ -5,7 +5,10 @@ import google_tools
 st.set_page_config(initial_sidebar_state='collapsed')
 st.title('Compilación de informe semanal')
 
-drive_sevice = google_tools.get_drive_service()
+client_secrets = st.secrets.client_secret
+# print(client_secrets)
+
+drive_sevice = google_tools.get_drive_service(client_secrets)
 
 st.sidebar.markdown('## Parámetros adicionales')
 

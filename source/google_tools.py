@@ -11,7 +11,7 @@ import json
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
 
-def get_authenticated_credentials():
+def get_authenticated_credentials(client_secrets):
     """
     Prompts the user to log in and grant access to the application.
     Returns the user's OAuth 2.0 credentials.
@@ -46,8 +46,8 @@ def get_authenticated_credentials():
                         f'So removing the token was intended but it gives the error:\n    {e2}')
 
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'client_secret.json', SCOPES)
+            flow = InstalledAppFlow.from_client_config(
+                client_secrets, SCOPES)
             creds = flow.run_local_server(port=0)
 
         # Save the credentials for future use
@@ -112,9 +112,9 @@ def download_file(file_id, local_path, drive_service):
         f.write(fh.getvalue())
 
 
-def get_drive_service():
+def get_drive_service(client_secrets):
     # Example usage
-    creds = get_authenticated_credentials()
+    creds = get_authenticated_credentials(client_secrets)
     # print(f'\n{creds.to_json()}')
 
     # Try to make a sample API request
