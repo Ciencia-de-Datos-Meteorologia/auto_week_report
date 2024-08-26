@@ -8,10 +8,13 @@ import io
 import json
 
 # Set the scopes for the API you want to access
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+SCOPES = [
+    'https://www.googleapis.com/auth/drive.readonly',
+    # 'https://www.googleapis.com/auth/directory.readonly'
+]
 
 
-def get_authenticated_credentials(client_secrets):
+def get_authenticated_credentials(client_secret):
     """
     Prompts the user to log in and grant access to the application.
     Returns the user's OAuth 2.0 credentials.
@@ -38,7 +41,7 @@ def get_authenticated_credentials(client_secrets):
             except Exception as e1:
                 try:
                     os.remove('token.json')
-                    flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', SCOPES)
+                    flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
                     creds = flow.run_local_server(port=0)
                 except Exception as e2:
                     raise Exception(
@@ -46,8 +49,7 @@ def get_authenticated_credentials(client_secrets):
                         f'So removing the token was intended but it gives the error:\n    {e2}')
 
         else:
-            flow = InstalledAppFlow.from_client_config(
-                client_secrets, SCOPES)
+            flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
             creds = flow.run_local_server(port=0)
 
         # Save the credentials for future use
@@ -73,6 +75,25 @@ def find_file_by_path(path, drive_service, current_folder_id='root'):
     files = list_files(current_folder_id, drive_service, filename)
     if files:
         return files[0]
+    else:
+        return None
+
+
+def list_files_from_path(path, drive_service, current_folder_id='root'):
+    """
+    Find a file in Google Drive by its POSIX-like path.
+    """
+    parts = path.split('/')
+    # current_folder_id = 'root'
+    for part in parts:
+        files = list_files(current_folder_id, drive_service, part)
+        if not files:
+            return None
+        current_folder_id = files[0]['id']
+
+    files = list_files(current_folder_id, drive_service)
+    if files:
+        return files
     else:
         return None
 
@@ -112,12 +133,43 @@ def download_file(file_id, local_path, drive_service):
         f.write(fh.getvalue())
 
 
-def get_drive_service(client_secrets):
+def get_drive_service(client_secret):
     # Example usage
-    creds = get_authenticated_credentials(client_secrets)
+    creds = get_authenticated_credentials(client_secret)
     # print(f'\n{creds.to_json()}')
 
     # Try to make a sample API request
     drive_service = build('drive', 'v3', credentials=creds)
 
     return drive_service
+
+
+def get_people_service(client_secret):
+
+    creds = get_authenticated_credentials(client_secret)
+
+    # Create the Google Contacts API client
+    people_service = build('people', 'v1', credentials=creds)
+
+    return people_service
+
+
+# def search_name(people_service, user_id):
+#
+#     # Search for a person by their email address
+#     results = people_service.people().searchDirectoryPeople(
+#         query=f'{user_id}@insivumeh.gob.gt',
+#         readMask='names,emailAddresses,organizations',
+#         sources='DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE').execute()
+#
+#     return results
+#
+#     # Extract the person's name
+#     if results.get('connections'):
+#         person = results['connections'][0]
+#         name = person.get('names', [{}])[0].get('displayName')
+#         # print(f"Name: {name}")
+#         return name
+#     else:
+#         # print("No person found with the given email address.")
+#         return None

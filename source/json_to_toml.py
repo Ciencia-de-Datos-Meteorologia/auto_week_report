@@ -7,5 +7,5 @@ with open('client_secret.json') as text:
     print(a)
     tml = toml.dumps(a)
     print('\nToml:\n', tml)
-    with open('client_secret.toml', 'x') as toml_file:
+    with open('.streamlit/secrets.toml', 'w') as toml_file:
         toml_file.writelines(tml)
