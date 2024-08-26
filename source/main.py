@@ -2,7 +2,6 @@ import streamlit as st
 import google_tools
 import datetime as dt
 import pandas as pd
-from streamlit_google_auth import Authenticate
 
 # Initialize streamlit page
 st.set_page_config(initial_sidebar_state='collapsed')
