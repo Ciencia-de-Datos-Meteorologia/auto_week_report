@@ -2,9 +2,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
-from googleapiclient.http import MediaIoBaseDownload
 import os
-import io
 import json
 
 # Set the scopes for the API you want to access
@@ -42,7 +40,9 @@ def get_authenticated_credentials(client_secret):
                 try:
                     os.remove('token.json')
                     flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
-                    creds = flow.run_local_server(port=0)
+                    # creds = flow.run_local_server(port=0)
+                    auth_url = flow.authorization_url(prompt='consent')
+                    return auth_url
                 except Exception as e2:
                     raise Exception(
                         f'The following error ocour:\n    {e1}\n' +
@@ -50,13 +50,14 @@ def get_authenticated_credentials(client_secret):
 
         else:
             flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
-            creds = flow.run_local_server(port=0)
+            # creds = flow.run_local_server(port=0)
+            auth_url = flow.authorization_url(prompt='consent')
 
         # Save the credentials for future use
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
+        # with open('token.json', 'w') as token:
+        #     token.write(creds.to_json())
 
-    return creds
+    return auth_url
 
 
 def find_file_by_path(path, drive_service, current_folder_id='root'):

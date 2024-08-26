@@ -2,6 +2,7 @@ import streamlit as st
 import google_tools
 import datetime as dt
 import pandas as pd
+from streamlit_google_auth import Authenticate
 
 # Initialize streamlit page
 st.set_page_config(initial_sidebar_state='collapsed')
@@ -10,8 +11,10 @@ st.title('Compilación de informe semanal')
 client_secret = st.secrets.client_secret
 # print(client_secrets)
 
-drive_sevice = google_tools.get_drive_service(client_secret)
-people_service = google_tools.get_people_service(client_secret)
+# drive_sevice = google_tools.get_drive_service(client_secret)
+drive_service = google_tools.get_authenticated_credentials(client_secret)
+st.markdown(f'[Click here]({drive_service[0]})')
+# people_service = google_tools.get_people_service(client_secret)
 
 st.sidebar.markdown('## Parámetros adicionales')
 
