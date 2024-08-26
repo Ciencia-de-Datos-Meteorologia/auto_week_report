@@ -39,7 +39,8 @@ def get_authenticated_credentials(client_secret):
             except Exception as e1:
                 try:
                     os.remove('token.json')
-                    flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
+                    flow = InstalledAppFlow.from_client_config(
+                        client_secret, SCOPES, redirect_uri='http://localhost:8501/')
                     # creds = flow.run_local_server(port=0)
                     auth_url = flow.authorization_url(prompt='consent')
                     return auth_url
@@ -49,7 +50,8 @@ def get_authenticated_credentials(client_secret):
                         f'So removing the token was intended but it gives the error:\n    {e2}')
 
         else:
-            flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
+            flow = InstalledAppFlow.from_client_config(
+                client_secret, SCOPES, redirect_uri='http://localhost:8501/')
             # creds = flow.run_local_server(port=0)
             auth_url = flow.authorization_url(prompt='consent')
 
