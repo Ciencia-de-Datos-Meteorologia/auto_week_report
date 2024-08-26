@@ -15,8 +15,8 @@ else
 endif
 badd +4 .gitignore
 badd +3 streamlit_secrets.toml
-badd +49 source/main.py
-badd +94 ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
+badd +61 source/main.py
+badd +133 ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
 badd +6 source/json_to_toml.py
 badd +2 source/.gitignore
 argglobal
@@ -48,9 +48,9 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe '1resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 94 + 95) / 190)
+exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
 exe '2resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 95 + 95) / 190)
+exe 'vert 2resize ' . ((&columns * 94 + 95) / 190)
 exe '3resize ' . ((&lines * 12 + 23) / 46)
 exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
 exe '4resize ' . ((&lines * 12 + 23) / 46)
@@ -67,12 +67,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 50 - ((30 * winheight(0) + 15) / 31)
+let s:l = 61 - ((29 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 50
-normal! 024|
+keepjumps 61
+normal! 039|
 wincmd w
 argglobal
 if bufexists(fnamemodify("~/Documents/WorkTasks/auto_week_report/source/google_tools.py", ":p")) | buffer ~/Documents/WorkTasks/auto_week_report/source/google_tools.py | else | edit ~/Documents/WorkTasks/auto_week_report/source/google_tools.py | endif
@@ -90,12 +90,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 94 - ((19 * winheight(0) + 15) / 31)
+let s:l = 141 - ((20 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 94
-normal! 055|
+keepjumps 141
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1", ":p")) | buffer term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1 | else | edit term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1 | endif
@@ -111,11 +111,11 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 475 - ((11 * winheight(0) + 6) / 12)
+let s:l = 648 - ((11 * winheight(0) + 6) / 12)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 475
+keepjumps 648
 normal! 0
 wincmd w
 argglobal
@@ -131,18 +131,17 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 30 - ((5 * winheight(0) + 6) / 12)
+let s:l = 153 - ((8 * winheight(0) + 6) / 12)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 30
-normal! 09|
+keepjumps 153
+normal! 0
 wincmd w
-4wincmd w
 exe '1resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 94 + 95) / 190)
+exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
 exe '2resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 95 + 95) / 190)
+exe 'vert 2resize ' . ((&columns * 94 + 95) / 190)
 exe '3resize ' . ((&lines * 12 + 23) / 46)
 exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
 exe '4resize ' . ((&lines * 12 + 23) / 46)
@@ -162,7 +161,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

@@ -122,15 +122,27 @@ def download_file(file_id, local_path, drive_service):
     """
     Download a file from Google Drive to the specified local path.
     """
-    request = drive_service.files().get_media(fileId=file_id)
-    fh = io.BytesIO()
-    downloader = MediaIoBaseDownload(fh, request)
-    done = False
-    while done is False:
-        status, done = downloader.next_chunk()
+    request = drive_service.files().get(
+        fileId=file_id,
+        fields='exportLinks'
+    ).execute()
+    export_links = request['exportLinks']
+    print(request)
+    response = drive_service.files().export(
+        fileId=file_id,
+        # mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        mimeType='text/csv'
+    ).execute()
+    # fh = io.BytesIO()
+    # downloader = MediaIoBaseDownload(fh, request)
+    # done = False
+    # while done is False:
+    # status, done = downloader.next_chunk()
 
+    # with open(local_path, 'wb') as f:
+    # f.write(fh.getvalue())
     with open(local_path, 'wb') as f:
-        f.write(fh.getvalue())
+        f.write(response)
 
 
 def get_drive_service(client_secret):

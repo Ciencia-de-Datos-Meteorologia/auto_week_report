@@ -1,6 +1,7 @@
 import streamlit as st
 import google_tools
 import datetime as dt
+import pandas as pd
 
 # Initialize streamlit page
 st.set_page_config(initial_sidebar_state='collapsed')
@@ -44,7 +45,18 @@ section_folders = [
 ]
 
 
+report_files = []
+
 for folder in section_folders:
-    week_folder = google_tools.list_files_from_path(
+    section_files_query = google_tools.list_files_from_path(
         f'{folder}/{week_name}', drive_sevice, week_report_folder_id)
-    st.text(week_folder)
+    if section_files_query is not None:
+        section_files = [f for f in section_files_query if f['mimeType']
+                         == 'application/vnd.google-apps.spreadsheet']
+        report_files += section_files
+
+
+for report in report_files:
+    google_tools.download_file(report['id'], 'temp_report.csv', drive_sevice)
+    data = pd.read_csv('temp_report.csv')
+    st.dataframe(data)
