@@ -64,8 +64,10 @@ client_secret = st.secrets.client_secret
 
 try:
     auth_url, creds = google_tools.google_oauth_login(client_secret, st.query_params['code'])
-except Exception:
+except KeyError:
     auth_url, creds = google_tools.google_oauth_login(client_secret)
 
 if creds is None:
     st.link_button('DriveLink', auth_url)
+else:
+    st.button('DriveLink', disabled=True)
