@@ -14,7 +14,7 @@ client_secret = st.secrets.client_secret
 drive_service = google_tools.get_authenticated_credentials(client_secret)
 st.markdown(f'[Click here]({drive_service[0]})')
 # people_service = google_tools.get_people_service(client_secret)
-
+st.text(st.session_state)
 st.sidebar.markdown('## Parámetros adicionales')
 
 week_report_folder_id = st.sidebar.text_input(
