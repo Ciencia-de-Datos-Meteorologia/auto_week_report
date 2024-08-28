@@ -5,6 +5,12 @@ import pandas as pd
 
 metadata_id = '1LcFZ3YqS8TcgA6zl5QaMwIBHiguc3kqjf5OjGNKNaRI'
 
+pre_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
+               'Actores participantes', 'Resultados Esperados']
+post_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
+                'Actores participantes', 'Resultados', 'Medio de verificación']
+
+
 # Page oficial url:
 page_url = 'https://reporte-semana.streamlit.app/'
 scopes = [
@@ -59,6 +65,7 @@ report_type = st.radio('Tipo de reporte:', ['Pre', 'Post'])
 if report_type == 'Pre':
     week_name = friday_report.strftime('%Y-%m-%d')
     selected_monday = friday_report
+    report_columns = pre_columns
 elif report_type == 'Post':
     week_name = monday_report.strftime('%Y-%m-%d')
     selected_monday = monday_report
@@ -66,7 +73,7 @@ elif report_type == 'Post':
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
 
-google_tools.download_file(metadata_id, 'metadata.csv', drive_service)
+google_tools.download_file(metadata_id, 'metadata.xlsx', drive_service)
 metadata = pd.read_csv('metadata.csv')
 
 section_folders = metadata['Sección'].unique()
@@ -86,7 +93,10 @@ st.text(report_files)
 
 for report in report_files:
     google_tools.download_file(report['id'], 'temp_report.csv', drive_service)
-    data = pd.read_csv('temp_report.csv')
-    data.drop('No.', axis=1, inplace=True)
+    data = pd.read_excel('temp_report.xlsx')
+    try:
+        data.drop('No.', axis=1, inplace=True)
+    except KeyError:
+        pass
     st.markdown(f'### {report["name"]}')
     st.dataframe(data)

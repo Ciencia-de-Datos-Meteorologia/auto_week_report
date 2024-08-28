@@ -154,8 +154,8 @@ def download_file(file_id, local_path, drive_service):
     print(request)
     response = drive_service.files().export(
         fileId=file_id,
-        # mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        mimeType='text/csv'
+        mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        # mimeType='text/csv'
     ).execute()
     # fh = io.BytesIO()
     # downloader = MediaIoBaseDownload(fh, request)
