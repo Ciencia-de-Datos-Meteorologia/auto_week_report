@@ -82,10 +82,11 @@ for folder in section_folders:
                          == 'application/vnd.google-apps.spreadsheet']
         report_files += section_files
 
-st.write(report_files)
+st.text(report_files)
 
 for report in report_files:
     google_tools.download_file(report['id'], 'temp_report.csv', drive_service)
     data = pd.read_csv('temp_report.csv')
     data.drop('No.', axis=1, inplace=True)
+    st.markdown(f'### {report["name"]}')
     st.dataframe(data)
