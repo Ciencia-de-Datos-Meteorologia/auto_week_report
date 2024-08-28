@@ -10,6 +10,9 @@ pre_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
 post_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
                 'Actores participantes', 'Resultados', 'Medio de verificación']
 
+# List with users that might have errors or mistakes
+pending_users = []
+warning_users = []
 
 # Page oficial url:
 page_url = 'https://reporte-semana.streamlit.app/'
@@ -94,17 +97,26 @@ for folder in section_folders:
 
 st.text(report_files)
 
+
 for report in report_files:
     st.markdown(f'### {report["name"]}')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service)
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
-    except Exception as e:
-        st.write(type(e), e)
+    except ValueError:
+        # st.write(type(e), e)
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n)
 
-    data = data[report_columns]
+    try:
+        data = data[report_columns]
+    except Exception:
+        warning_users.append(report['name'])
+
     data.index = data.index + 1
     data.index.name = 'No.'
 
-    st.dataframe(data)
+    # st.dataframe(data)
+
+    latex_report = data.to_latex()
+
+    st.markdown(f'```latex\n{latex_report}\n```')
