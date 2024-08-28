@@ -66,10 +66,12 @@ if report_type == 'Pre':
     week_name = friday_report.strftime('%Y-%m-%d')
     selected_monday = friday_report
     report_columns = pre_columns
+    report_type_n = 0
 elif report_type == 'Post':
     week_name = monday_report.strftime('%Y-%m-%d')
     selected_monday = monday_report
     report_columns = post_columns
+    report_type_n = 1
 
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
@@ -93,12 +95,16 @@ for folder in section_folders:
 st.text(report_files)
 
 for report in report_files:
-    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service)
-    data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
-    try:
-        data.drop('No.', axis=1, inplace=True)
-    except KeyError:
-        pass
-    data = data[report_columns]
     st.markdown(f'### {report["name"]}')
+    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service)
+    try:
+        data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
+    except Exception as e:
+        st.write(type(e), e)
+        data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n)
+
+    data = data[report_columns]
+    data.index = data.index + 1
+    data.index.name = 'No.'
+
     st.dataframe(data)
