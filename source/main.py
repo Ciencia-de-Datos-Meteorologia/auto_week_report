@@ -29,13 +29,10 @@ if 'creds' not in st.session_state:
             client_secret, st.query_params['code'], page_url, scopes)
         st.session_state['creds'] = creds
     except KeyError:
-        # creds = None
-        drive_service = None
-        login_button = col2.button('Conectar a Google Drive')
-        if login_button:
-            auth_url = google_tools.google_oauth_link(client_secret, page_url, scopes)
-            # st.page_link(auth_url)
-            col3.link_button('Ir a Google', auth_url)
+        # if login_button:
+        auth_url = google_tools.google_oauth_link(client_secret, page_url, scopes)
+        # col3.link_button('Ir a Google', auth_url)
+        login_button = col2.link_button('Conectar a Google Drive', auth_url)
 
 if 'creds' not in st.session_state:
     st.markdown('### Por favor inicie sesión')
