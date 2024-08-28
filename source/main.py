@@ -3,6 +3,8 @@ import google_tools
 import datetime as dt
 import pandas as pd
 
+metadata_id = '1LcFZ3YqS8TcgA6zl5QaMwIBHiguc3kqjf5OjGNKNaRI'
+
 # Page oficial url:
 page_url = 'https://reporte-semana.streamlit.app/'
 scopes = [
@@ -64,20 +66,24 @@ elif report_type == 'Post':
     week_name = monday_report.strftime('%Y-%m-%d')
     selected_monday = monday_report
 
-selected_date = st.date_input('Fecha de inicialización',
+selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
 
+google_tools.download_file(metadata_id, 'metadata.csv', drive_service)
+metadata = pd.read_csv('metadata.csv')
+
+section_folders = metadata['Sección'].unique()
 
 # email = st.text_input('Correo')
 # name = google_tools.search_name(people_service, email)
 
 # st.markdown(f'**Name:** {name}')
-
-section_folders = [
-    'aplicaciones_climaticas',
-    'cambio_climatico',
-    'ciencia_de_datos',
-]
+#
+# section_folders = [
+#     'aplicaciones_climaticas',
+#     'cambio_climatico',
+#     'ciencia_de_datos',
+# ]
 
 report_files = []
 
