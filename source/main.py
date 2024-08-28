@@ -53,7 +53,7 @@ week_report_folder_id = st.sidebar.text_input(
 run_date = dt.date.today()
 
 friday_report = run_date + dt.timedelta(-run_date.weekday())
-monday_report = run_date + dt.timedelta(7 - run_date.weekday())
+monday_report = run_date + dt.timedelta(-7 - run_date.weekday())
 
 report_type = st.radio('Tipo de reporte:', ['Pre', 'Post'])
 
