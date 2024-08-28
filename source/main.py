@@ -4,7 +4,8 @@ import datetime as dt
 import pandas as pd
 
 # Page oficial url:
-page_url = 'https://reporte-semana.streamlit.app/'
+# page_url = 'https://reporte-semana.streamlit.app/'
+page_url = 'http://localhost:8501/'
 scopes = [
     'https://www.googleapis.com/auth/drive.readonly',
 ]
