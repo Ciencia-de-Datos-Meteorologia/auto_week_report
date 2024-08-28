@@ -177,21 +177,14 @@ def download_file(file_id, local_path, drive_service):
         f.write(response)
 
 
-def get_drive_service(client_secret):
-    # Example usage
-    creds = get_authenticated_credentials(client_secret)
-    # print(f'\n{creds.to_json()}')
-
+def get_drive_service(creds):
     # Try to make a sample API request
     drive_service = build('drive', 'v3', credentials=creds)
 
     return drive_service
 
 
-def get_people_service(client_secret):
-
-    creds = get_authenticated_credentials(client_secret)
-
+def get_people_service(creds):
     # Create the Google Contacts API client
     people_service = build('people', 'v1', credentials=creds)
 

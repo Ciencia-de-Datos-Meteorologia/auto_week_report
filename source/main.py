@@ -10,11 +10,19 @@ st.title('Compilación de informe semanal')
 client_secret = st.secrets.client_secret
 # print(client_secrets)
 
-# drive_sevice = google_tools.get_drive_service(client_secret)
-drive_service = google_tools.get_authenticated_credentials(client_secret)
-st.markdown(f'[Click here]({drive_service[0]})')
-# people_service = google_tools.get_people_service(client_secret)
-st.text(st.session_state)
+col1, col2, col3 = st.columns(3)
+
+try:
+    auth_url, creds = google_tools.google_oauth_login(client_secret, st.query_params['code'])
+except KeyError:
+    auth_url, creds = google_tools.google_oauth_login(client_secret)
+
+if creds is None:
+    col2.link_button('Conectar con Drive', auth_url)
+else:
+    col2.button('Conectar con Drive', disabled=True)
+
+drive_service = google_tools.get_drive_service(creds)
 st.sidebar.markdown('## Parámetros adicionales')
 
 week_report_folder_id = st.sidebar.text_input(
@@ -51,7 +59,7 @@ report_files = []
 
 for folder in section_folders:
     section_files_query = google_tools.list_files_from_path(
-        f'{folder}/{week_name}', drive_sevice, week_report_folder_id)
+        f'{folder}/{week_name}', drive_service, week_report_folder_id)
     if section_files_query is not None:
         section_files = [f for f in section_files_query if f['mimeType']
                          == 'application/vnd.google-apps.spreadsheet']
