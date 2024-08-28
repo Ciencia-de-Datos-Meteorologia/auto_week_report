@@ -41,6 +41,48 @@ def google_oauth_login(
     return authorization_url, creds
 
 
+def google_oauth_link(
+        client_secret,
+        redirect_uri='http://localhost:8501/',
+        scopes=SCOPES
+):
+
+    # Set up the OAuth flow
+    flow = InstalledAppFlow.from_client_config(
+        client_secret,
+        scopes=scopes,
+        redirect_uri=redirect_uri
+    )
+
+    # Start the OAuth login flow
+    authorization_url, state = flow.authorization_url(
+        access_type='offline',
+        include_granted_scopes='true')
+
+    return authorization_url
+
+
+def google_oauth_get_creds(
+        client_secret,
+        fetch_token_code,
+        redirect_uri='http://localhost:8501/',
+        scopes=SCOPES
+):
+
+    # Set up the OAuth flow
+    flow = InstalledAppFlow.from_client_config(
+        client_secret,
+        scopes=scopes,
+        redirect_uri=redirect_uri
+    )
+
+    # Try to have credentials
+    flow.fetch_token(code=fetch_token_code)
+    creds = flow.credentials
+
+    return creds
+
+
 def get_authenticated_credentials(client_secret):
     """
     Prompts the user to log in and grant access to the application.
