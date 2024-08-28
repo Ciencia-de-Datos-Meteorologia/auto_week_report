@@ -14,8 +14,9 @@ scopes = [
 st.set_page_config(initial_sidebar_state='collapsed')
 st.title('Compilación de informe semanal')
 
+
+# Get drive authentication
 client_secret = st.secrets.client_secret
-# print(client_secrets)
 
 if 'creds' not in st.session_state:
 
@@ -39,25 +40,33 @@ if 'creds' not in st.session_state:
     st.stop()
 
 drive_service = google_tools.get_drive_service(st.session_state['creds'])
+
+
+# SideBar:
 st.sidebar.markdown('## Parámetros adicionales')
 
 week_report_folder_id = st.sidebar.text_input(
     'ID de la carpeta "Informe Mensual"', '1gOzvoBpXS1hzAwIE3ihJEvoBXT9lj45b')
 
-run_date = st.sidebar.date_input('Fecha de inicialización',
-                                 dt.datetime.today(), format='DD/MM/YYYY')
 
-monday = run_date + dt.timedelta(-run_date.weekday())
-friday = run_date + dt.timedelta(4 - run_date.weekday())
+# Main page
+run_date = dt.date.today()
+
+friday_report = run_date + dt.timedelta(-run_date.weekday())
+monday_report = run_date + dt.timedelta(7 - run_date.weekday())
 
 report_type = st.radio('Tipo de reporte:', ['Pre', 'Post'])
 
 if report_type == 'Pre':
-    week_name = friday.strftime('%Y-%m-%d')
+    week_name = friday_report.strftime('%Y-%m-%d')
+    selected_monday = friday_report
 elif report_type == 'Post':
-    week_name = monday.strftime('%Y-%m-%d')
+    week_name = monday_report.strftime('%Y-%m-%d')
+    selected_monday = monday_report
 
-st.text(week_name)
+selected_date = st.date_input('Fecha de inicialización',
+                              selected_monday, format='DD/MM/YYYY')
+
 
 # email = st.text_input('Correo')
 # name = google_tools.search_name(people_service, email)
