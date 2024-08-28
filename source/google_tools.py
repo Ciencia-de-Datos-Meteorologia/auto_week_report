@@ -1,4 +1,4 @@
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import Flow
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
@@ -20,7 +20,7 @@ def google_oauth_login(
 ):
 
     # Set up the OAuth flow
-    flow = InstalledAppFlow.from_client_config(
+    flow = Flow.from_client_config(
         client_secret,
         scopes=scopes,
         redirect_uri=redirect_uri
@@ -48,7 +48,7 @@ def google_oauth_link(
 ):
 
     # Set up the OAuth flow
-    flow = InstalledAppFlow.from_client_config(
+    flow = Flow.from_client_config(
         client_secret,
         scopes=scopes,
         redirect_uri=redirect_uri
@@ -56,7 +56,7 @@ def google_oauth_link(
 
     # Start the OAuth login flow
     authorization_url, state = flow.authorization_url(
-        access_type='offline',
+        # access_type='offline',
         include_granted_scopes='true')
 
     return authorization_url
@@ -70,7 +70,7 @@ def google_oauth_get_creds(
 ):
 
     # Set up the OAuth flow
-    flow = InstalledAppFlow.from_client_config(
+    flow = Flow.from_client_config(
         client_secret,
         scopes=scopes,
         redirect_uri=redirect_uri
@@ -81,56 +81,6 @@ def google_oauth_get_creds(
     creds = flow.credentials
 
     return creds
-
-
-def get_authenticated_credentials(client_secret):
-    """
-    Prompts the user to log in and grant access to the application.
-    Returns the user's OAuth 2.0 credentials.
-    """
-    creds = None
-
-    # # Try to load existing credentials from a file
-    # try:
-    #     creds = Credentials.from_authorized_user_info(info=None, file_name='token.json')
-    # except FileNotFoundError:
-    #     pass
-
-    # Try to load existing credentials from a file
-    token_file = 'token.json'
-    if os.path.exists(token_file):
-        with open(token_file, 'r') as token:
-            creds = Credentials.from_authorized_user_info(info=json.load(token))
-
-    # If no credentials are available, start the OAuth 2.0 flow
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            try:
-                creds.refresh(Request())
-            except Exception as e1:
-                try:
-                    os.remove('token.json')
-                    flow = InstalledAppFlow.from_client_config(
-                        client_secret, SCOPES, redirect_uri='http://localhost:8501/')
-                    # creds = flow.run_local_server(port=0)
-                    auth_url = flow.authorization_url(prompt='consent')
-                    return auth_url
-                except Exception as e2:
-                    raise Exception(
-                        f'The following error ocour:\n    {e1}\n' +
-                        f'So removing the token was intended but it gives the error:\n    {e2}')
-
-        else:
-            flow = InstalledAppFlow.from_client_config(
-                client_secret, SCOPES, redirect_uri='http://localhost:8501/')
-            # creds = flow.run_local_server(port=0)
-            auth_url = flow.authorization_url(prompt='consent')
-
-        # Save the credentials for future use
-        # with open('token.json', 'w') as token:
-        #     token.write(creds.to_json())
-
-    return auth_url
 
 
 def find_file_by_path(path, drive_service, current_folder_id='root'):
@@ -200,7 +150,7 @@ def download_file(file_id, local_path, drive_service):
         fileId=file_id,
         fields='exportLinks'
     ).execute()
-    export_links = request['exportLinks']
+    # export_links = request['exportLinks']
     print(request)
     response = drive_service.files().export(
         fileId=file_id,
