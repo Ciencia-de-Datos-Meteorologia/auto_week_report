@@ -111,12 +111,15 @@ for report in report_files:
         data = data[report_columns]
     except Exception:
         warning_users.append(report['name'])
+        data = data.iloc[:, :len(report_columns)]
 
     data.index = data.index + 1
-    data.index.name = 'No.'
+    data.columns.name = 'No.'
 
     # st.dataframe(data)
 
-    latex_report = data.to_latex()
+    latex_report = data.to_latex(
+        column_format='p{0.15\\linewidth}p{0.15\\linewidth}' +
+        'p{0.15\\linewidth}p{0.15\\linewidth}p{0.15\\linewidth}p{0.15\\linewidth}')
 
     st.markdown(f'```latex\n{latex_report}\n```')
