@@ -94,7 +94,7 @@ report_files = []
 
 for folder in section_folders:
     section_files_query = google_tools.list_files_from_path(
-        f'{folder}/{selected_date.strftime("% Y-%m-%d")}', drive_service, week_report_folder_id)
+        f'{folder}/{selected_date.strftime("%Y-%m-%d")}', drive_service, week_report_folder_id)
     if section_files_query is not None:
         section_files = [f for f in section_files_query if f['mimeType']
                          == 'application/vnd.google-apps.spreadsheet']
