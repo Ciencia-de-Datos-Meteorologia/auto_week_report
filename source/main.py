@@ -123,7 +123,11 @@ for report in report_files:
 
     # st.dataframe(data)
 
-    latex_report = data.to_latex(column_format=column_format)
+    for column in data.columns:
+        data[column] = data[column].str.replace('&', '\\&')
+        data[column] = data[column].str.replace('\\\\&', '\\&')
+
+    latex_report = data.to_latex(column_format=column_format, longtable=True)
 
     original_header = 'No. & Actividad & Objeto ' +\
         '& Lugar donde se realizó & Actores participantes ' +\
