@@ -127,7 +127,7 @@ for report in report_files:
         data[column] = data[column].str.replace('&', '\\&')
         data[column] = data[column].str.replace('\\\\&', '\\&')
 
-    latex_report = data.to_latex(column_format=column_format, longtable=True)
+    latex_report = data.to_latex(column_format=column_format)
 
     original_header = 'No. & Actividad & Objeto ' +\
         '& Lugar donde se realizó & Actores participantes ' +\
@@ -138,6 +138,7 @@ for report in report_files:
         '\\headerrow Actores participantes & ' +\
         '\\headerrow Resultados esperados'
 
+    latex_report = latex_report.replace('\\begin{table}', '\\begin{longtable}')
     latex_report = latex_report.replace('\\\\', '\\tabularnewline\\hline')
     latex_report = latex_report.replace('\\toprule', '\\hline')
     latex_report = latex_report.replace('\\bottomrule', '')
