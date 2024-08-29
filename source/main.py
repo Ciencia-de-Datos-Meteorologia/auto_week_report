@@ -105,7 +105,11 @@ st.text(report_files)
 
 for report in report_files:
     id_name = report['name']
-    full_name = metadata[metadata['Usuario'] == id_name]['Nombre']
+    try:
+        full_name = metadata[metadata['Usuario'] == id_name]['Nombre'].values[0]
+    except Exception as e:
+        st.write(type(e))
+        full_name = id_name
     # st.markdown(f'### {report["name"]}')
     st.markdown(f'### {full_name}')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
