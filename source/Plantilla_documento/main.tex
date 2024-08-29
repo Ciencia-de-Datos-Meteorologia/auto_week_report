@@ -1,4 +1,4 @@
-\documentclass[paper=letterpaper, fontsize=11pt]{scrartcl}
+\documentclass[paper=letterpaper, fontsize=11pt]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Geometry
@@ -15,30 +15,10 @@ headsep = 30mm,
 footskip = 30mm
 }
 
+\usepackage[defaultfam,tabular,lining]{montserrat}
 \usepackage[T1]{fontenc}
-\usepackage{fourier}
-\usepackage{array}
-\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
-\usepackage[spanish,mexico]{babel}	% English language/hyphenation
-\usepackage[protrusion=true,expansion=true]{microtype}	
-\usepackage{amsmath,amsfonts,amsthm} % Math packages
-\usepackage[pdftex]{graphicx}	
-\usepackage{url}
-\usepackage{caption}
-%\usepackage{xcolor} % Para definir colores
-%%% Custom sectioning
-\usepackage{sectsty}
-\allsectionsfont{\normalfont\scshape}
-\usepackage{comment}
-% \usepackage[symbol]{footmisc}
-
-\usepackage{tablefootnote}
-
-%\usepackage{draftwatermark}
-%\SetWatermarkText{BORRADOR}
-%\SetWatermarkScale{12}
-
-
+\renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+\usepackage[spanish,mexico]{babel}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Colors
@@ -52,8 +32,7 @@ footskip = 30mm
 \definecolor{titulo_color_letras}{HTML}{ffffff} % Color blanco para el texto
 \definecolor{titulo_color}{HTML}{1b2a55}%7f7f7f
 
-\usepackage{titlesec}
-\usepackage{tikz}
+
 \usepackage{titlesec}
 \usepackage{tcolorbox}
 \usepackage{hyperref}
@@ -63,14 +42,6 @@ linkcolor=darkBlue,
 filecolor=magenta,
 urlcolor=darkBlue,
 }
-
-\captionsetup[figure]{labelfont={color=darkBlue,bf},format=plain}
-\captionsetup[table]{labelfont={color=darkBlue,bf},format=plain}
-% \captionsetup{font={small,sc,onehalfspacing,color=red}}
-
-\usepackage{fixfoot}
-
-\graphicspath{{Figures/scales/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Custom headers/footers (fancyhdr package)
@@ -88,31 +59,11 @@ urlcolor=darkBlue,
     \includegraphics[width=\paperwidth]{Figures/page_footline.png}
     }
 
-%\fancyhead{%
-%    \hspace*{\dimexpr -5.5mm-\leftmargin}%
-%    \includegraphics[width=\paperwidth]{Figures/cintillo_top.png}
-%    }
-%\fancyfoot[L]{%
-%    \hspace*{\dimexpr -5mm-\leftmargin}%
-%    \includegraphics[width=1.0\paperwidth]{Figures/cintillo_bottom.png}
-%    }
-
 \fancyfoot[C]{\thepage}									% Pagenumbering
-\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
-\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
-\setlength{\headheight}{5.6pt}
+% \renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+% \renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+% \setlength{\headheight}{5.6pt}
 
-%%% Equation and float numbering
-% \numberwithin{equation}{section}		% Equationnumbering: section.eq#
-% \numberwithin{figure}{section}			% Figurenumbering: section.fig#
-% \numberwithin{table}{section}				% Tablenumbering: section.tab#
-
-\usepackage{float}
-\usepackage{subcaption}
-% \usepackage[symbol]{footmisc}
-% \renewcommand{\thefootnote}{\fnsymbol{footnote}}
-\usepackage{multirow}
-\usepackage{multicol}
 \usepackage{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,18 +77,18 @@ urlcolor=darkBlue,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Estilo del cuadro alrededor del título de la sección
-\tcbset{
-    colback=titulo_color_fondo,
-    coltext=titulo_color_letras,
-    boxrule=0pt,
-    arc=0pt,
-    boxsep=0pt,
-    left=1pt,
-    right=5pt,
-    top=5pt,
-    bottom=5pt,
-    height=2.0em % Ajusta el alto del cuadro de coloreado aquí
-}
+% \tcbset{
+%     colback=titulo_color_fondo,
+%     coltext=titulo_color_letras,
+%     boxrule=0pt,
+%     arc=0pt,
+%     boxsep=0pt,
+%     left=1pt,
+%     right=5pt,
+%     top=5pt,
+%     bottom=5pt,
+%     height=2.0em % Ajusta el alto del cuadro de coloreado aquí
+% }
 
 % Comando personalizado para los títulos de sección
 \newcommand{\coloredsection}[1]{%
@@ -157,26 +108,19 @@ urlcolor=darkBlue,
 \title{
     \usefont{OT1}{bch}{b}{n}
     \textcolor[HTML]{1b2a55}{% Cambia "FF5733" al código HTML del color que desees
-        \vspace*{-0.8cm}
-        \LARGE \textbf{###title###} 
+        \vspace*{-0.3cm}
+        \LARGE \textbf{...title...} 
     }
 }
 \author{
 		\normalfont \normalsize
-            ###date### \\
+            ...date... \\
         \normalfont \normalsize Departamento de Investigación y Servicios Meteorológicos \\
         \normalsize Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología - INSIVUMEH
 }
 \date{}
 
-% Header
-%\setlength\headheight{10pt}
-% \rhead{\includegraphics[width=\textwidth]{bs_boletin_clima2.png}}
-% \lfoot{\includegraphics[width=\textwidth]{bi_boletin_clima2.png}}
-%\newwatermark[allpages,color=red!50,angle=45,scale=2,xpos=0,ypos=0]{DRAFT}
-% \usepackage{draftwatermark}
-% \SetWatermarkText{BORRADOR}
-% \SetWatermarkScale{12}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Begin document
 \begin{document}

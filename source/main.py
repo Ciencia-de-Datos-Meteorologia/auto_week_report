@@ -104,7 +104,8 @@ st.text(report_files)
 
 
 for report in report_files:
-    full_name = metadata[metadata['Usuario'] == report['name']]['Nombre']
+    id_name = report['name']
+    full_name = metadata[metadata['Usuario'] == id_name]['Nombre']
     # st.markdown(f'### {report["name"]}')
     st.markdown(f'### {full_name}')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
@@ -117,7 +118,7 @@ for report in report_files:
     try:
         data = data[report_columns]
     except Exception:
-        warning_users.append(report['name'])
+        warning_users.append(id_name)
         data = data.iloc[:, :len(report_columns)]
 
     data.index = data.index + 1
