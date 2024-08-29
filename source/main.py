@@ -11,7 +11,7 @@ post_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
                 'Actores participantes', 'Resultados', 'Medio de verificación']
 
 pre_column_format = '|c|CCCCC|'
-post_column_format = '|c|CCCCCC|'
+post_column_format = '|c|DDDDDD|'
 
 # List with users that might have errors or mistakes
 pending_users = []
@@ -69,13 +69,13 @@ monday_report = run_date + dt.timedelta(-7 - run_date.weekday())
 report_type = st.radio('Tipo de reporte:', ['Pre', 'Post'])
 
 if report_type == 'Pre':
-    week_name = friday_report.strftime('%Y-%m-%d')
+    # week_name = friday_report.strftime('%Y-%m-%d')
     selected_monday = friday_report
     report_columns = pre_columns
     report_type_n = 0
     column_format = pre_column_format
 elif report_type == 'Post':
-    week_name = monday_report.strftime('%Y-%m-%d')
+    # week_name = monday_report.strftime('%Y-%m-%d')
     selected_monday = monday_report
     report_columns = post_columns
     report_type_n = 1
@@ -94,7 +94,7 @@ report_files = []
 
 for folder in section_folders:
     section_files_query = google_tools.list_files_from_path(
-        f'{folder}/{week_name}', drive_service, week_report_folder_id)
+        f'{folder}/{selected_date.strftime("% Y-%m-%d")}', drive_service, week_report_folder_id)
     if section_files_query is not None:
         section_files = [f for f in section_files_query if f['mimeType']
                          == 'application/vnd.google-apps.spreadsheet']
@@ -104,7 +104,9 @@ st.text(report_files)
 
 
 for report in report_files:
-    st.markdown(f'### {report["name"]}')
+    full_name = metadata[metadata['Usuario'] == report['name']]['Nombre']
+    # st.markdown(f'### {report["name"]}')
+    st.markdown(f'### {full_name}')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
