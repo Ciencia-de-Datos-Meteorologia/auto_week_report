@@ -107,8 +107,7 @@ for report in report_files:
     id_name = report['name']
     try:
         full_name = metadata[metadata['Usuario'] == id_name]['Nombre'].values[0]
-    except Exception as e:
-        st.write(type(e))
+    except KeyError:
         full_name = id_name
     # st.markdown(f'### {report["name"]}')
     st.markdown(f'### {full_name}')
