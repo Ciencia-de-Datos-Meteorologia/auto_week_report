@@ -79,7 +79,7 @@ elif report_type == 'Post':
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
 
-google_tools.download_file(metadata_id, 'metadata.xlsx', drive_service, 'csv')
+google_tools.download_file(metadata_id, 'metadata.csv', drive_service, 'csv')
 metadata = pd.read_csv('metadata.csv')
 
 section_folders = metadata['Sección'].unique()
