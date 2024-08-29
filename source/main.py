@@ -10,6 +10,9 @@ pre_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
 post_columns = ['Actividad', 'Objeto', 'Lugar donde se realizó',
                 'Actores participantes', 'Resultados', 'Medio de verificación']
 
+pre_column_format = '|c|CCCCC|'
+post_column_format = '|c|CCCCCC|'
+
 # List with users that might have errors or mistakes
 pending_users = []
 warning_users = []
@@ -70,11 +73,13 @@ if report_type == 'Pre':
     selected_monday = friday_report
     report_columns = pre_columns
     report_type_n = 0
+    column_format = pre_column_format
 elif report_type == 'Post':
     week_name = monday_report.strftime('%Y-%m-%d')
     selected_monday = monday_report
     report_columns = post_columns
     report_type_n = 1
+    column_format = post_column_format
 
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
@@ -118,8 +123,21 @@ for report in report_files:
 
     # st.dataframe(data)
 
-    latex_report = data.to_latex(
-        column_format='p{0.15\\linewidth}p{0.15\\linewidth}' +
-        'p{0.15\\linewidth}p{0.15\\linewidth}p{0.15\\linewidth}p{0.15\\linewidth}')
+    latex_report = data.to_latex(column_format=column_format)
+
+    original_header = 'No. & Actividad & Objeto ' +\
+        '& Lugar donde se realizó & Actores participantes ' +\
+        '& Resultados Esperados'
+    new_header = '\\rowcolor{darkBlue}\n\\headerrow No. & ' +\
+        '\\headerrow Actividad & \\headerrow Objeto & ' +\
+        '\\headerrow Lugar donde se realizó & ' +\
+        '\\headerrow Actores participantes & ' +\
+        '\\headerrow Resultados esperados'
+
+    latex_report = latex_report.replace('\\\\', '\\tabularnewline\\hline')
+    latex_report = latex_report.replace('\\toprule', '\\hline')
+    latex_report = latex_report.replace('\\bottomrule', '')
+    latex_report = latex_report.replace('\\midrule', '')
+    latex_report = latex_report.replace(original_header, new_header)
 
     st.markdown(f'```latex\n{latex_report}\n```')

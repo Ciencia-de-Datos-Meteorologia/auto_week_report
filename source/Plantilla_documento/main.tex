@@ -113,6 +113,7 @@ urlcolor=darkBlue,
 % \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \usepackage{multirow}
 \usepackage{multicol}
+\usepackage{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Maketitle metadata
@@ -156,13 +157,13 @@ urlcolor=darkBlue,
 \title{
     \usefont{OT1}{bch}{b}{n}
     \textcolor[HTML]{1b2a55}{% Cambia "FF5733" al código HTML del color que desees
-        \vspace*{-0.3cm}
-        \LARGE \textbf{TITULO} 
+        \vspace*{-0.8cm}
+        \LARGE \textbf{###title###} 
     }
 }
 \author{
 		\normalfont \normalsize
-	    CODIGO \\
+            ###date### \\
         \normalfont \normalsize Departamento de Investigación y Servicios Meteorológicos \\
         \normalsize Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología - INSIVUMEH
 }
