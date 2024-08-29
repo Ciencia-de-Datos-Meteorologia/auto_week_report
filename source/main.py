@@ -138,7 +138,8 @@ for report in report_files:
         '\\headerrow Actores participantes & ' +\
         '\\headerrow Resultados esperados'
 
-    latex_report = latex_report.replace('\\begin{table}', '\\begin{longtable}')
+    latex_report = latex_report.replace('\\begin{tabular}', '\\begin{longtable}')
+    latex_report = latex_report.replace('\\end{tabular}', '\\end{longtable}')
     latex_report = latex_report.replace('\\\\', '\\tabularnewline\\hline')
     latex_report = latex_report.replace('\\toprule', '\\hline')
     latex_report = latex_report.replace('\\bottomrule', '')
