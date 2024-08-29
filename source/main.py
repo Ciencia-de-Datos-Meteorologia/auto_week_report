@@ -79,7 +79,7 @@ elif report_type == 'Post':
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
 
-google_tools.download_file(metadata_id, 'metadata.xlsx', drive_service)
+google_tools.download_file(metadata_id, 'metadata.xlsx', drive_service, 'csv')
 metadata = pd.read_csv('metadata.csv')
 
 section_folders = metadata['Sección'].unique()
@@ -100,7 +100,7 @@ st.text(report_files)
 
 for report in report_files:
     st.markdown(f'### {report["name"]}')
-    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service)
+    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
     except ValueError:

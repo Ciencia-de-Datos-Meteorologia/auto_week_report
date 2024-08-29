@@ -142,10 +142,12 @@ def list_files(parent_id, drive_service, name=None):
     return results.get('files', [])
 
 
-def download_file(file_id, local_path, drive_service):
+def download_file(file_id, local_path, drive_service, mimeType='csv'):
     """
     Download a file from Google Drive to the specified local path.
     """
+    mimeTypes = {'csv': 'text/csv',
+                 'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
     request = drive_service.files().get(
         fileId=file_id,
         fields='exportLinks'
@@ -154,7 +156,7 @@ def download_file(file_id, local_path, drive_service):
     print(request)
     response = drive_service.files().export(
         fileId=file_id,
-        mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        mimeType=mimeTypes[mimeType]
         # mimeType='text/csv'
     ).execute()
     # fh = io.BytesIO()

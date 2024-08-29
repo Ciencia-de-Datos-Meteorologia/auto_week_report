@@ -15,48 +15,21 @@ else
 endif
 badd +4 .gitignore
 badd +3 streamlit_secrets.toml
-badd +61 source/main.py
-badd +133 ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
+badd +107 source/main.py
+badd +157 ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
 badd +6 source/json_to_toml.py
-badd +2 source/.gitignore
+badd +4 source/.gitignore
+badd +17 st_oauth_test.py
+badd +64 source/st_oauth_test.py
+badd +0 ~/.local/lib/python3.10/site-packages/streamlit/__init__.py
+badd +1 source/.streamlit/secrets.toml
+badd +24 authenticator_test.py
 argglobal
 %argdel
 $argadd .gitignore
 edit source/main.py
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-wincmd w
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe '1resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
-exe '2resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 94 + 95) / 190)
-exe '3resize ' . ((&lines * 12 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
-exe '4resize ' . ((&lines * 12 + 23) / 46)
-exe 'vert 4resize ' . ((&columns * 95 + 95) / 190)
 argglobal
-balt ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
+balt source/.gitignore
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -67,85 +40,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 61 - ((29 * winheight(0) + 15) / 31)
+let s:l = 107 - ((11 * winheight(0) + 22) / 44)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 61
-normal! 039|
-wincmd w
-argglobal
-if bufexists(fnamemodify("~/Documents/WorkTasks/auto_week_report/source/google_tools.py", ":p")) | buffer ~/Documents/WorkTasks/auto_week_report/source/google_tools.py | else | edit ~/Documents/WorkTasks/auto_week_report/source/google_tools.py | endif
-if &buftype ==# 'terminal'
-  silent file ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
-endif
-balt source/main.py
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 141 - ((20 * winheight(0) + 15) / 31)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 141
-normal! 0
-wincmd w
-argglobal
-if bufexists(fnamemodify("term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1", ":p")) | buffer term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1 | else | edit term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1 | endif
-if &buftype ==# 'terminal'
-  silent file term://~/Documents/WorkTasks/auto_week_report//4321:/usr/bin/fish;\#toggleterm\#1
-endif
-balt ~/Documents/WorkTasks/auto_week_report/source/google_tools.py
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 648 - ((11 * winheight(0) + 6) / 12)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 648
-normal! 0
-wincmd w
-argglobal
-if bufexists(fnamemodify("term://~/Documents/WorkTasks/auto_week_report//16791:/usr/bin/fish;\#toggleterm\#2", ":p")) | buffer term://~/Documents/WorkTasks/auto_week_report//16791:/usr/bin/fish;\#toggleterm\#2 | else | edit term://~/Documents/WorkTasks/auto_week_report//16791:/usr/bin/fish;\#toggleterm\#2 | endif
-if &buftype ==# 'terminal'
-  silent file term://~/Documents/WorkTasks/auto_week_report//16791:/usr/bin/fish;\#toggleterm\#2
-endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 153 - ((8 * winheight(0) + 6) / 12)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 153
-normal! 0
-wincmd w
-exe '1resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 1resize ' . ((&columns * 95 + 95) / 190)
-exe '2resize ' . ((&lines * 31 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 94 + 95) / 190)
-exe '3resize ' . ((&lines * 12 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 94 + 95) / 190)
-exe '4resize ' . ((&lines * 12 + 23) / 46)
-exe 'vert 4resize ' . ((&columns * 95 + 95) / 190)
+keepjumps 107
+normal! 030|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -153,8 +53,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
