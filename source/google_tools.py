@@ -148,12 +148,12 @@ def download_file(file_id, local_path, drive_service, mimeType='csv'):
     """
     mimeTypes = {'csv': 'text/csv',
                  'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
-    request = drive_service.files().get(
-        fileId=file_id,
-        fields='exportLinks'
-    ).execute()
+    # request = drive_service.files().get(
+    #     fileId=file_id,
+    #     fields='exportLinks'
+    # ).execute()
     # export_links = request['exportLinks']
-    print(request)
+    # print(request)
     response = drive_service.files().export(
         fileId=file_id,
         mimeType=mimeTypes[mimeType]
