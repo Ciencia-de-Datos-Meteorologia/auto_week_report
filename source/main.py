@@ -184,5 +184,11 @@ for report in report_files:
 
 tex_content.close()
 
-st.download_button('main.tex', 'source/Plantilla_documento/main.tex')
-st.download_button('content.tex', 'source/Plantilla_documento/content.tex')
+tex_main = open('source/Plantilla_documento/main.tex','r')
+tex_content = open('source/Plantilla_documento/content.tex','r')
+
+st.download_button('main.tex', tex_main)
+st.download_button('content.tex', tex_content)
+
+tex_main.close()
+tex_content.close()
