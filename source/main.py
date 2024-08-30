@@ -130,7 +130,7 @@ for report in report_files:
     except KeyError:
         full_name = id_name
     # st.markdown(f'### {report["name"]}')
-    st.markdown(f'### {full_name}')
+    st.markdown(f'- **{full_name}**')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
@@ -186,5 +186,8 @@ tex_content.close()
 # tex_main.close()
 # tex_content.close()
 
-st.download_button('main.tex', tex_main_str, 'main.tex', 'text/tex')
-st.download_button('content.tex', tex_content_str, 'content.tex', 'text/tex')
+st.markdown(f'```latex\n{tex_main_str}\n```')
+st.markdown(f'```latex\n{tex_content_str}\n```')
+
+# st.download_button('main.tex', tex_main_str, 'main.tex', 'text/tex')
+# st.download_button('content.tex', tex_content_str, 'content.tex', 'text/tex')
