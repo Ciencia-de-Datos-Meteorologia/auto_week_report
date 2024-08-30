@@ -133,10 +133,10 @@ for report in report_files:
     st.markdown(f'- **{full_name}**')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
     try:
-        data = pd.read_excel('temp_report.xlsx', sheet_name=report_type)
+        data = pd.read_excel('temp_report.xlsx', sheet_name=report_type, dtype=str)
     except ValueError:
         # st.write(type(e), e)
-        data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n)
+        data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n, dtype=str)
 
     try:
         data = data[report_columns]
