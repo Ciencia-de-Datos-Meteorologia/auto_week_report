@@ -114,16 +114,16 @@ for folder in section_folders:
 
 st.text(report_files)
 
-with open('Plantilla_documento/main.tex', 'r') as tex_main:
+with open('source/Plantilla_documento/main.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
 
 tex_main_str = tex_main_str.replace('...title...', report_title)
 tex_main_str = tex_main_str.replace('...date...', report_date)
 
-with open('Plantilla_documento/main.tex', 'w') as tex_main:
+with open('source/Plantilla_documento/main.tex', 'w') as tex_main:
     tex_main.write(tex_main_str)
 
-tex_content = open('Plantilla_documento/content.tex')
+tex_content = open('source/Plantilla_documento/content.tex')
 
 for report in report_files:
     id_name = report['name']
