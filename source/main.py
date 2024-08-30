@@ -123,7 +123,7 @@ tex_main_str = tex_main_str.replace('...date...', report_date)
 with open('source/Plantilla_documento/main.tex', 'w') as tex_main:
     tex_main.write(tex_main_str)
 
-tex_content = open('source/Plantilla_documento/content.tex')
+tex_content = open('source/Plantilla_documento/content.tex','a')
 
 for report in report_files:
     id_name = report['name']
