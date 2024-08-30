@@ -193,12 +193,15 @@ with open('source/Plantilla_documento/content.tex', 'w') as tex_content:
     tex_content.write(tex_content_str)
 
 
-st.markdown(f'```latex\n{tex_main_str}\n```')
-st.markdown(f'```latex\n{tex_content_str}\n```')
+# st.markdown(f'```latex\n{tex_main_str}\n```')
+# st.markdown(f'```latex\n{tex_content_str}\n```')
 
 
 latex_compile = 'pdflatex -output-directory=tex_out main.tex'
-subprocess.run(latex_compile.split(' '),cwd='source/Plantilla_documento/')
+latex_exe = subprocess.run(latex_compile.split(' '), cwd='source/Plantilla_documento/',
+                           stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+
+st.write(latex_exe.stdout)
 
 with open('source/Plantilla_documento/tex_out/main.pdf', 'rb') as pdf_out:
     pdf_out_bins = pdf_out.read()
