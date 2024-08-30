@@ -1,1 +1,1 @@
-locales locales-all
+locales locales-all pdflatex

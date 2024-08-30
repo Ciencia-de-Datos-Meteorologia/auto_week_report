@@ -186,8 +186,25 @@ tex_content.close()
 # tex_main.close()
 # tex_content.close()
 
+with open('source/Plantilla_documento/main.tex', 'w') as tex_main:
+    tex_main.write(tex_main_str)
+
+with open('source/Plantilla_documento/content.tex', 'w') as tex_content:
+    tex_content.write(tex_content_str)
+
+
+
 st.markdown(f'```latex\n{tex_main_str}\n```')
 st.markdown(f'```latex\n{tex_content_str}\n```')
+
+
+latex_compile = 'cd source/Plantilla_documento/ && pdflatex -output-directory=tex_out main.tex'
+subprocess.run(latex_compile.split(' '))
+
+with open('source/Plantilla_documento/tex_out/main.pdf', 'r') as pdf_out:
+    pdf_out_bins = pdf_out.read()
+
+st.download_button('compilado.pdf', pdf_out_bins, 'compilado.pdf')
 
 # st.download_button('main.tex', tex_main_str, 'main.tex', 'text/tex')
 # st.download_button('content.tex', tex_content_str, 'content.tex', 'text/tex')
