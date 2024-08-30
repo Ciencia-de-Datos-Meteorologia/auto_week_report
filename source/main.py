@@ -152,6 +152,8 @@ for report in report_files:
     for column in data.columns:
         data[column] = data[column].str.replace('&', '\\&')
         data[column] = data[column].str.replace('\\\\&', '\\&')
+        data[column] = data[column].str.replace('_', '\\_')
+        data[column] = data[column].str.replace('\\\\_', '\\_')
 
     latex_report = data.to_latex(column_format=column_format)
 
