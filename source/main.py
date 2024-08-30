@@ -120,10 +120,8 @@ with open('source/Plantilla_documento/main.tex', 'r') as tex_main:
 tex_main_str = tex_main_str.replace('...title...', report_title)
 tex_main_str = tex_main_str.replace('...date...', report_date)
 
-with open('source/Plantilla_documento/main.tex', 'w') as tex_main:
-    tex_main.write(tex_main_str)
-
-tex_content = open('source/Plantilla_documento/content.tex','a')
+with open('source/Plantilla_documento/content.tex', 'r') as tex_content:
+    tex_content_str = tex_content.read()
 
 for report in report_files:
     id_name = report['name']
@@ -176,19 +174,17 @@ for report in report_files:
 
     # st.markdown(f'```latex\n{latex_report}\n```')
 
-    try:
-        tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
-    except Exception as e:
-        st.write(type(e),e)
-        # tex_content.write(f'\n\\section{{{full_name}}}\n\n')
+    tex_content_str += f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n'
 
 tex_content.close()
 
-tex_main = open('source/Plantilla_documento/main.tex','r')
-tex_content = open('source/Plantilla_documento/content.tex','r')
+# tex_main = open('source/Plantilla_documento/main.tex','r')
+# tex_content = open('source/Plantilla_documento/content.tex','r')
+#
+# tex_main_str = tex
+#
+# tex_main.close()
+# tex_content.close()
 
-st.download_button('main.tex', tex_main)
-st.download_button('content.tex', tex_content)
-
-tex_main.close()
-tex_content.close()
+st.download_button('main.tex', tex_main_str, 'main.tex', 'text/tex')
+st.download_button('content.tex', tex_content_str, 'content.tex', 'text/tex')
