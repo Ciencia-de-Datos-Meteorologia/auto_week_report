@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1725039214 "/home/jorgealejandro/Documents/WorkTasks/auto_week_report/source/Plantilla_documento/main.tex" "tex_out/main.pdf" "main" 1725039214
+["pdflatex"] 1725039698 "/home/jorgealejandro/Documents/WorkTasks/auto_week_report/source/Plantilla_documento/main.tex" "tex_out/main.pdf" "main" 1725039699
   "/etc/texmf/web2c/texmf.cnf" 1714164727 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jorgealejandro/Documents/WorkTasks/auto_week_report/source/Plantilla_documento/main.tex" 1725039212 5575 75fead03e5040e8778c27f0231afe881 ""
+  "/home/jorgealejandro/Documents/WorkTasks/auto_week_report/source/Plantilla_documento/main.tex" 1725039698 5575 6dc2c866940d9a99252a1342438d9413 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/bitstrea/charter/bchb7t.tfm" 1136768653 2732 006d846b4d54f9b40899c7c3eecd771a ""
@@ -211,9 +211,9 @@
   "Figures/page_footline.png" 1724458642 146037 8121b17909d829b07ad7d5b05fe96611 ""
   "Figures/page_header.png" 1724458642 27587 6cc3a8bd15acbd9ed817cde5c2c08e53 ""
   "content.tex" 1724967403 206 5c7e7883379d90eef62b70bb84603b29 ""
-  "main.tex" 1725039212 5575 75fead03e5040e8778c27f0231afe881 ""
-  "tex_out/main.aux" 1725039213 895 8aaff7cabd3bd8c2b77ed0a869a785fe "pdflatex"
-  "tex_out/main.out" 1725039213 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1725039698 5575 6dc2c866940d9a99252a1342438d9413 ""
+  "tex_out/main.aux" 1725039699 895 8aaff7cabd3bd8c2b77ed0a869a785fe "pdflatex"
+  "tex_out/main.out" 1725039699 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "tex_out/main.aux"
   "tex_out/main.log"
