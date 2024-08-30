@@ -5,7 +5,7 @@ import pandas as pd
 import locale
 
 # Set the locale to Spanish (Spain)
-locale.setlocale(locale.LC_TIME, 'es_ES')
+locale.setlocale(locale.LC_TIME, 'es_ES.utf8')
 
 metadata_id = '1LcFZ3YqS8TcgA6zl5QaMwIBHiguc3kqjf5OjGNKNaRI'
 
@@ -90,7 +90,7 @@ elif report_type == 'Post':
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
 
-report_date = selected_date.strftime('Semana del %d de $b')
+report_date = selected_date.strftime('Semana del %d de %B')
 
 google_tools.download_file(metadata_id, 'metadata.csv', drive_service, 'csv')
 metadata = pd.read_csv('metadata.csv')
@@ -174,5 +174,5 @@ for report in report_files:
 
     tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
 
-st.download_button('main.tex','Plantilla_documento/main.tex')
-st.download_button('content.tex','Plantilla_documento/content.tex')
+st.download_button('main.tex', 'Plantilla_documento/main.tex')
+st.download_button('content.tex', 'Plantilla_documento/content.tex')
