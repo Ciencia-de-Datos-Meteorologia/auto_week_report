@@ -1,1 +1,1 @@
-locales locales-all texlive-latex-base texlive-fonts-recommended texlive-fonts-extra
+locales locales-all texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-lang-spanish
