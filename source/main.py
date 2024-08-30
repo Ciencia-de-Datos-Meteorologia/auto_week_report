@@ -2,10 +2,14 @@ import streamlit as st
 import google_tools
 import datetime as dt
 import pandas as pd
-import locale
+# import locale
+import subprocess
 
 # Set the locale to Spanish (Spain)
-locale.setlocale(locale.LC_TIME, 'es_ES.utf8')
+# locale.setlocale(locale.LC_TIME, 'es_ES.utf8')
+result = subprocess.run(['locale', '-a'], stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE, universal_newlines=True)
+st.write(result.stdout)
 
 metadata_id = '1LcFZ3YqS8TcgA6zl5QaMwIBHiguc3kqjf5OjGNKNaRI'
 
