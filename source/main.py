@@ -201,7 +201,7 @@ latex_compile = 'cd source/Plantilla_documento/ && pdflatex -output-directory=te
 subprocess.run(latex_compile.split(' '), stdout=subprocess.PIPE,
                stderr=subprocess.PIPE, universal_newlines=True, shell=True)
 
-with open('source/Plantilla_documento/tex_out/main.pdf', 'r') as pdf_out:
+with open('source/Plantilla_documento/tex_out/main.pdf', 'rb') as pdf_out:
     pdf_out_bins = pdf_out.read()
 
 st.download_button('compilado.pdf', pdf_out_bins, 'compilado.pdf')
