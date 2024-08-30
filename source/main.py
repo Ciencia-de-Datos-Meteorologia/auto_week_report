@@ -197,9 +197,8 @@ st.markdown(f'```latex\n{tex_main_str}\n```')
 st.markdown(f'```latex\n{tex_content_str}\n```')
 
 
-latex_compile = 'cd source/Plantilla_documento/ && pdflatex -output-directory=tex_out main.tex'
-subprocess.run(latex_compile.split(' '), stdout=subprocess.PIPE,
-               stderr=subprocess.PIPE, universal_newlines=True, shell=True)
+latex_compile = 'pdflatex -output-directory=tex_out main.tex'
+subprocess.run(latex_compile.split(' '),cwd='source/Plantilla_documento/')
 
 with open('source/Plantilla_documento/tex_out/main.pdf', 'rb') as pdf_out:
     pdf_out_bins = pdf_out.read()
