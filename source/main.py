@@ -2,6 +2,10 @@ import streamlit as st
 import google_tools
 import datetime as dt
 import pandas as pd
+import locale
+
+# Set the locale to Spanish (Spain)
+locale.setlocale(locale.LC_TIME, 'es_ES')
 
 metadata_id = '1LcFZ3YqS8TcgA6zl5QaMwIBHiguc3kqjf5OjGNKNaRI'
 
@@ -74,15 +78,19 @@ if report_type == 'Pre':
     report_columns = pre_columns
     report_type_n = 0
     column_format = pre_column_format
+    report_title = 'Informe de planificación semanal'
 elif report_type == 'Post':
     # week_name = monday_report.strftime('%Y-%m-%d')
     selected_monday = monday_report
     report_columns = post_columns
     report_type_n = 1
     column_format = post_column_format
+    report_title = 'Informe de resultados semanales'
 
 selected_date = st.date_input('Semana',
                               selected_monday, format='DD/MM/YYYY')
+
+report_date = selected_date.strftime('Semana del %d de $b')
 
 google_tools.download_file(metadata_id, 'metadata.csv', drive_service, 'csv')
 metadata = pd.read_csv('metadata.csv')
@@ -102,6 +110,16 @@ for folder in section_folders:
 
 st.text(report_files)
 
+with open('Plantilla_documento/main.tex', 'r') as tex_main:
+    tex_main_str = tex_main.read()
+
+tex_main_str = tex_main_str.replace('...title...', report_title)
+tex_main_str = tex_main_str.replace('...date...', report_date)
+
+with open('Plantilla_documento/main.tex', 'w') as tex_main:
+    tex_main.write(tex_main_str)
+
+tex_content = open('Plantilla_documento/content.tex')
 
 for report in report_files:
     id_name = report['name']
@@ -152,4 +170,9 @@ for report in report_files:
     latex_report = latex_report.replace('\\midrule', '')
     latex_report = latex_report.replace(original_header, new_header)
 
-    st.markdown(f'```latex\n{latex_report}\n```')
+    # st.markdown(f'```latex\n{latex_report}\n```')
+
+    tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
+
+st.download_button('main.tex','Plantilla_documento/main.tex')
+st.download_button('content.tex','Plantilla_documento/content.tex')
