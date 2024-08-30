@@ -176,7 +176,10 @@ for report in report_files:
 
     # st.markdown(f'```latex\n{latex_report}\n```')
 
-    tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
+    # tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
+    tex_content.write(f'\n\\section{{{full_name}}}\n\n')
+
+tex_content.close()
 
 st.download_button('main.tex', 'Plantilla_documento/main.tex')
 st.download_button('content.tex', 'Plantilla_documento/content.tex')
