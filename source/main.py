@@ -8,7 +8,7 @@ import subprocess
 # Set the locale to Spanish (Spain)
 locale.setlocale(locale.LC_TIME, 'es_MX')
 # result = subprocess.run(['locale', '-a'], stdout=subprocess.PIPE,
-                        # stderr=subprocess.PIPE, universal_newlines=True)
+# stderr=subprocess.PIPE, universal_newlines=True)
 # st.write(result.stdout)
 
 metadata_id = '1LcFZ3YqS8TcgA6zl5QaMwIBHiguc3kqjf5OjGNKNaRI'
@@ -176,8 +176,11 @@ for report in report_files:
 
     # st.markdown(f'```latex\n{latex_report}\n```')
 
-    # tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
-    tex_content.write(f'\n\\section{{{full_name}}}\n\n')
+    try:
+        tex_content.write(f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n')
+    except Exception as e:
+        st.write(type(e),e)
+        # tex_content.write(f'\n\\section{{{full_name}}}\n\n')
 
 tex_content.close()
 
