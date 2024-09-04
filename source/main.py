@@ -96,7 +96,7 @@ selected_date = st.date_input('Semana',
 
 report_date = selected_date.strftime('Semana del %d de %B')
 
-st.markdown(f'## {report_title} '+report_date.replace('Semana del','-'))
+st.markdown(f'## {report_title} '+report_date.replace('Semana del', '-'))
 
 google_tools.download_file(metadata_id, 'metadata.csv', drive_service, 'csv')
 metadata = pd.read_csv('metadata.csv')
@@ -182,7 +182,8 @@ for report in report_files:
 
     tex_content_str += f'\n\\section*{{{full_name}}}\n\n{latex_report}\n\n'
 
-tex_content.close()
+
+st.write(warning_users)
 
 # tex_main = open('source/Plantilla_documento/main.tex','r')
 # tex_content = open('source/Plantilla_documento/content.tex','r')
