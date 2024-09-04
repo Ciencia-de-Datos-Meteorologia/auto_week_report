@@ -96,6 +96,8 @@ selected_date = st.date_input('Semana',
 
 report_date = selected_date.strftime('Semana del %d de %B')
 
+st.markdown(f'## {report_title} '+report_date.replace('Semana del','-'))
+
 google_tools.download_file(metadata_id, 'metadata.csv', drive_service, 'csv')
 metadata = pd.read_csv('metadata.csv')
 
@@ -112,7 +114,7 @@ for folder in section_folders:
                          == 'application/vnd.google-apps.spreadsheet']
         report_files += section_files
 
-st.text(report_files)
+st.write(report_files)
 
 with open('source/Plantilla_documento/main.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
@@ -127,8 +129,9 @@ for report in report_files:
     id_name = report['name']
     try:
         full_name = metadata[metadata['Usuario'] == id_name]['Nombre'].values[0]
-    except KeyError:
+    except Exception as e:
         full_name = id_name
+        st.write(e)
     # st.markdown(f'### {report["name"]}')
     st.markdown(f'- **{full_name}**')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
@@ -137,6 +140,7 @@ for report in report_files:
     except ValueError:
         # st.write(type(e), e)
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n, dtype=str)
+        warning_users.append(id_name)
 
     try:
         data = data[report_columns]
@@ -176,7 +180,7 @@ for report in report_files:
 
     # st.markdown(f'```latex\n{latex_report}\n```')
 
-    tex_content_str += f'\n\\section{{{full_name}}}\n\n{latex_report}\n\n'
+    tex_content_str += f'\n\\section*{{{full_name}}}\n\n{latex_report}\n\n'
 
 tex_content.close()
 
