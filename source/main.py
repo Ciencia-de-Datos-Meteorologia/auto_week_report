@@ -148,6 +148,8 @@ for report in report_files:
         warning_users.append(id_name)
         data = data.iloc[:, :len(report_columns)]
 
+    data = data[data.iloc[0].notna()]
+
     data.index = data.index + 1
     data.columns.name = 'No.'
 
