@@ -116,13 +116,13 @@ for folder in section_folders:
 
 st.write(report_files)
 
-with open('source/Plantilla_documento/main.tex', 'r') as tex_main:
+with open('source/Plantilla_documento/main.template.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
 
 tex_main_str = tex_main_str.replace('...title...', report_title)
 tex_main_str = tex_main_str.replace('...date...', report_date)
 
-with open('source/Plantilla_documento/content.tex', 'r') as tex_content:
+with open('source/Plantilla_documento/content.template.tex', 'r') as tex_content:
     tex_content_str = tex_content.read()
 
 for report in report_files:
