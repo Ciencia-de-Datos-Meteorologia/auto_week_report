@@ -129,7 +129,7 @@ for report in report_files:
     id_name = report['name']
     try:
         full_name = metadata[metadata['Usuario'] == id_name]['Nombre'].values[0]
-    except Exception as e:
+    except Exception:
         full_name = id_name
         # st.write(e)
         st.toast(f'Usuario no encontrado: `{id_name}`')
