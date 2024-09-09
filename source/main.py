@@ -131,7 +131,8 @@ for report in report_files:
         full_name = metadata[metadata['Usuario'] == id_name]['Nombre'].values[0]
     except Exception as e:
         full_name = id_name
-        st.write(e)
+        # st.write(e)
+        st.toast(f'Usuario no encontrado: `{id_name}`')
     # st.markdown(f'### {report["name"]}')
     st.markdown(f'- **{full_name}**')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
@@ -140,18 +141,24 @@ for report in report_files:
     except ValueError:
         # st.write(type(e), e)
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n, dtype=str)
-        warning_users.append(id_name)
+        # warning_users.append(id_name)
+        st.toast(f'Hojas con nombre incorrecto: `{id_name}`')
 
     try:
         data = data[report_columns]
     except Exception:
-        warning_users.append(id_name)
+        # warning_users.append(id_name)
         data = data.iloc[:, :len(report_columns)]
+        st.toast(f'Columnas con nombre incorrecto: `{id_name}`')
 
-    data.dropna(thresh=2,inplace=True)
+    data.dropna(thresh=2, inplace=True)
+
+    if data.empty:
+        continue
 
     data.index = data.index + 1
     data.columns.name = 'No.'
+    data.columns = report_columns
 
     # st.dataframe(data)
 
@@ -163,14 +170,22 @@ for report in report_files:
 
     latex_report = data.to_latex(column_format=column_format)
 
-    original_header = 'No. & Actividad & Objeto ' +\
-        '& Lugar donde se realizó & Actores participantes ' +\
-        '& Resultados Esperados'
-    new_header = '\\rowcolor{darkBlue}\n\\headerrow No. & ' +\
-        '\\headerrow Actividad & \\headerrow Objeto & ' +\
-        '\\headerrow Lugar donde se realizó & ' +\
-        '\\headerrow Actores participantes & ' +\
-        '\\headerrow Resultados esperados'
+    original_header = 'No.'
+    for column_name in report_columns:
+        original_header += f' & {column_name}'
+
+    new_header = '\\rowcolor{darkBlue}\n\\headerrow No.'
+    for column_name in report_columns:
+        new_header += f' & \\headerrow {column_name}'
+
+    # original_header = 'No. & Actividad & Objeto ' +\
+    #     '& Lugar donde se realizó & Actores participantes ' +\
+    #     '& Resultados Esperados'
+    # new_header = '\\rowcolor{darkBlue}\n\\headerrow No. & ' +\
+    #     '\\headerrow Actividad & \\headerrow Objeto & ' +\
+    #     '\\headerrow Lugar donde se realizó & ' +\
+    #     '\\headerrow Actores participantes & ' +\
+    #     '\\headerrow Resultados esperados'
 
     latex_report = latex_report.replace('\\begin{tabular}', '\\begin{longtable}')
     latex_report = latex_report.replace('\\end{tabular}', '\\end{longtable}')
