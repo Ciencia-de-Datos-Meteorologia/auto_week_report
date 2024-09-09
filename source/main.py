@@ -157,8 +157,8 @@ for report in report_files:
         continue
 
     data.index = data.index + 1
-    data.columns.name = 'No.'
     data.columns = report_columns
+    data.columns.name = 'No.'
 
     # st.dataframe(data)
 
