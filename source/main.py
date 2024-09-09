@@ -113,13 +113,14 @@ status_spinner.write('Buscando los archivos en Drive')
 for folder in section_folders:
     section_files_query = google_tools.list_files_from_path(
         f'{folder}/{selected_date.strftime("%Y-%m-%d")}', drive_service, week_report_folder_id)
+    more_info_view.write(section_files_query)
     if section_files_query is not None:
         section_files = [f for f in section_files_query if f['mimeType']
                          == 'application/vnd.google-apps.spreadsheet']
         report_files += section_files
 
 # st.write(report_files)
-more_info_view.write(report_files)
+# more_info_view.write(report_files)
 status_spinner.write('Editando plantillas')
 with open('source/Plantilla_documento/main.template.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
