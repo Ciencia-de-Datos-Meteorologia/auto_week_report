@@ -197,7 +197,7 @@ for report in report_files:
     latex_report = latex_report.replace('\\midrule', '')
     latex_report = latex_report.replace(original_header, new_header)
 
-    # st.markdown(f'```latex\n{latex_report}\n```')
+    st.markdown(f'```latex\n{latex_report}\n```')
 
     tex_content_str += f'\n\\section*{{{full_name}}}\n\n{latex_report}\n\n'
 
