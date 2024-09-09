@@ -104,7 +104,8 @@ metadata = pd.read_csv('metadata.csv')
 section_folders = metadata['Sección'].unique()
 
 status_spinner = st.status('Generando PDF con los informes')
-more_info_view = st.expander('Más información')
+# more_info_view = st.expander('Más información')
+more_info_view = st.sidebar
 
 report_files = []
 
@@ -118,6 +119,7 @@ for folder in section_folders:
         report_files += section_files
 
 # st.write(report_files)
+more_info_view.write(report_files)
 status_spinner.write('Editando plantillas')
 with open('source/Plantilla_documento/main.template.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
