@@ -147,7 +147,7 @@ for report in report_files:
     # st.markdown(f'### {report["name"]}')
     # st.markdown(f'- **{full_name}**')
     status_spinner.write(f'\t- {full_name}')
-    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, report['mimeType'],mimeType_explicit=True)
+    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type, dtype=str)
     except ValueError:
