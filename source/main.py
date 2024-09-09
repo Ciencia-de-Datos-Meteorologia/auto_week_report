@@ -178,8 +178,8 @@ for report in report_files:
     for column_name in report_columns:
         new_header += f' & \\headerrow {column_name}'
 
-    st.write(original_header)
-    st.write(new_header)
+    # st.write(original_header)
+    # st.write(new_header)
     # original_header = 'No. & Actividad & Objeto ' +\
     #     '& Lugar donde se realizó & Actores participantes ' +\
     #     '& Resultados Esperados'
@@ -197,7 +197,7 @@ for report in report_files:
     latex_report = latex_report.replace('\\midrule', '')
     latex_report = latex_report.replace(original_header, new_header)
 
-    st.markdown(f'```latex\n{latex_report}\n```')
+    # st.markdown(f'```latex\n{latex_report}\n```')
 
     tex_content_str += f'\n\\section*{{{full_name}}}\n\n{latex_report}\n\n'
 
