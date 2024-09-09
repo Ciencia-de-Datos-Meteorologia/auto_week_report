@@ -103,6 +103,7 @@ metadata = pd.read_csv('metadata.csv')
 
 section_folders = metadata['Sección'].unique()
 
+more_info_view = st.expander('Más información')
 
 report_files = []
 
@@ -133,6 +134,7 @@ for report in report_files:
         full_name = id_name
         # st.write(e)
         st.toast(f'Usuario no encontrado: `{id_name}`')
+        more_info_view.warning(f'Usuario no encontrado: `{id_name}`')
     # st.markdown(f'### {report["name"]}')
     st.markdown(f'- **{full_name}**')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
@@ -143,6 +145,7 @@ for report in report_files:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type_n, dtype=str)
         # warning_users.append(id_name)
         st.toast(f'Hojas con nombre incorrecto: `{id_name}`')
+        more_info_view.warning(f'Hojas con nombre incorrecto: `{id_name}`')
 
     try:
         data = data[report_columns]
@@ -150,6 +153,7 @@ for report in report_files:
         # warning_users.append(id_name)
         data = data.iloc[:, :len(report_columns)]
         st.toast(f'Columnas con nombre incorrecto: `{id_name}`')
+        more_info_view.warning(f'Columnas con nombre incorrecto: `{id_name}`')
 
     data.dropna(thresh=2, inplace=True)
 
