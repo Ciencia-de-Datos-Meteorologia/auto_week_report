@@ -115,7 +115,7 @@ for folder in section_folders:
                          == 'application/vnd.google-apps.spreadsheet']
         report_files += section_files
 
-st.write(report_files)
+# st.write(report_files)
 
 with open('source/Plantilla_documento/main.template.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
@@ -158,6 +158,8 @@ for report in report_files:
     data.dropna(thresh=2, inplace=True)
 
     if data.empty:
+        st.toast(f'Tabla vacía `{id_name}`')
+        more_info_view.warning(f'Tabla vacía `{id_name}`')
         continue
 
     data.index = data.index + 1
