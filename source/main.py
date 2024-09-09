@@ -116,7 +116,8 @@ for folder in section_folders:
     more_info_view.write(section_files_query)
     if section_files_query is not None:
         section_files = [f for f in section_files_query if f['mimeType']
-                         == 'application/vnd.google-apps.spreadsheet']
+                         in ['application/vnd.google-apps.spreadsheet',
+                             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']]
         report_files += section_files
 
 # st.write(report_files)
