@@ -178,6 +178,8 @@ for report in report_files:
     for column_name in report_columns:
         new_header += f' & \\headerrow {column_name}'
 
+    st.write(original_header)
+    st.write(new_header)
     # original_header = 'No. & Actividad & Objeto ' +\
     #     '& Lugar donde se realizó & Actores participantes ' +\
     #     '& Resultados Esperados'
@@ -200,7 +202,7 @@ for report in report_files:
     tex_content_str += f'\n\\section*{{{full_name}}}\n\n{latex_report}\n\n'
 
 
-st.write(warning_users)
+# st.write(warning_users)
 
 # tex_main = open('source/Plantilla_documento/main.tex','r')
 # tex_content = open('source/Plantilla_documento/content.tex','r')
@@ -217,8 +219,8 @@ with open('source/Plantilla_documento/content.tex', 'w') as tex_content:
     tex_content.write(tex_content_str)
 
 
-st.markdown(f'```latex\n{tex_main_str}\n```')
-st.markdown(f'```latex\n{tex_content_str}\n```')
+# st.markdown(f'```latex\n{tex_main_str}\n```')
+# st.markdown(f'```latex\n{tex_content_str}\n```')
 
 # st.text('Pre compile')
 latex_compile = 'pdflatex -output-directory=tex_out main.tex'
