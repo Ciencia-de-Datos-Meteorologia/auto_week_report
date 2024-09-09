@@ -167,8 +167,8 @@ for report in report_files:
     data.dropna(thresh=2, inplace=True)
 
     if data.empty:
-        st.toast(f'Tabla vacía `{id_name}`')
-        more_info_view.warning(f'Tabla vacía `{id_name}`')
+        st.toast(f'Tabla vacía: `{id_name}`')
+        more_info_view.warning(f'Tabla vacía: `{id_name}`')
         continue
 
     data.index = data.index + 1
@@ -233,7 +233,8 @@ for id in metadata['Usuario']:
 # tex_main.close()
 # tex_content.close()
 
-st.error('Usuarios faltantes:\n\t'+', '.join(missing_reports))
+for report in missing_reports:
+    st.error(f'Usuario faltante: `{report}`')
 
 status_spinner.write('Compilando el LaTeX')
 
@@ -261,6 +262,7 @@ with open('source/Plantilla_documento/tex_out/main.pdf', 'rb') as pdf_out:
 # st.text('Post read')
 
 st.download_button('compilado.pdf', pdf_out_bins, 'compilado.pdf')
+status_spinner.update(state='complete')
 
 # st.download_button('main.tex', tex_main_str, 'main.tex', 'text/tex')
 # st.download_button('content.tex', tex_content_str, 'content.tex', 'text/tex')
