@@ -113,7 +113,7 @@ status_spinner.write('Buscando los archivos en Drive')
 for folder in section_folders:
     section_files_query = google_tools.list_files_from_path(
         f'{folder}/{selected_date.strftime("%Y-%m-%d")}', drive_service, week_report_folder_id)
-    more_info_view.write(section_files_query)
+    # more_info_view.write(section_files_query)
     if section_files_query is not None:
         section_files = [f for f in section_files_query if f['mimeType']
                          in ['application/vnd.google-apps.spreadsheet',
@@ -147,7 +147,11 @@ for report in report_files:
     # st.markdown(f'### {report["name"]}')
     # st.markdown(f'- **{full_name}**')
     status_spinner.write(f'\t- {full_name}')
-    google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
+    try:
+        google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
+    except Exception as e:
+        more_info_view.write(e)
+        continue
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type, dtype=str)
     except ValueError:
