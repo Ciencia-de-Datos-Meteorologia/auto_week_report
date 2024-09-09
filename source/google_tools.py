@@ -142,7 +142,7 @@ def list_files(parent_id, drive_service, name=None):
     return results.get('files', [])
 
 
-def download_file(file_id, local_path, drive_service, mimeType='csv'):
+def download_file(file_id, local_path, drive_service, mimeType='csv', mimeType_explicit=False):
     """
     Download a file from Google Drive to the specified local path.
     """
@@ -154,9 +154,15 @@ def download_file(file_id, local_path, drive_service, mimeType='csv'):
     # ).execute()
     # export_links = request['exportLinks']
     # print(request)
+
+    if mimeType_explicit:
+        type_ = mimeType
+    else:
+        type_ = mimeTypes[mimeType]
+
     response = drive_service.files().export(
         fileId=file_id,
-        mimeType=mimeTypes[mimeType]
+        mimeType=type_
         # mimeType='text/csv'
     ).execute()
     # fh = io.BytesIO()
