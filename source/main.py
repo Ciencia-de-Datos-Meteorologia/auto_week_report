@@ -146,6 +146,9 @@ for report in report_files:
         # warning_users.append(id_name)
         st.toast(f'Hojas con nombre incorrecto: `{id_name}`')
         more_info_view.warning(f'Hojas con nombre incorrecto: `{id_name}`')
+    except Exception:
+        st.toast(f'Hoja no encontrada: `{id_name}`')
+        more_info_view.warning(f'Hoja no encontrada: `{id_name}`')
 
     try:
         data = data[report_columns]
