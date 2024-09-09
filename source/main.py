@@ -265,8 +265,8 @@ with open('source/Plantilla_documento/tex_out/main.pdf', 'rb') as pdf_out:
 
 # st.text('Post read')
 
-st.download_button(selected_date.strftime('%Y-%m-%d.pdf'),
-                   pdf_out_bins, selected_date.strftime('%Y-%m-%d.pdf'))
+st.download_button(f'{report_type}_' + selected_date.strftime('%Y-%m-%d.pdf'),
+                   pdf_out_bins, f'{report_type}_' + selected_date.strftime('%Y-%m-%d.pdf'))
 status_spinner.update(state='complete')
 
 # st.download_button('main.tex', tex_main_str, 'main.tex', 'text/tex')
