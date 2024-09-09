@@ -126,6 +126,8 @@ tex_main_str = tex_main_str.replace('...date...', report_date)
 with open('source/Plantilla_documento/content.template.tex', 'r') as tex_content:
     tex_content_str = tex_content.read()
 
+successful_reports = []
+
 for report in report_files:
     id_name = report['name']
     try:
@@ -209,7 +211,13 @@ for report in report_files:
     # st.markdown(f'```latex\n{latex_report}\n```')
 
     tex_content_str += f'\n\\section*{{{full_name}}}\n\n{latex_report}\n\n'
+    successful_reports.append(id_name)
 
+missing_reports = []
+
+for id in metadata['Usuario']:
+    if id not in successful_reports:
+        missing_reports.append(id)
 
 # st.write(warning_users)
 
@@ -220,6 +228,8 @@ for report in report_files:
 #
 # tex_main.close()
 # tex_content.close()
+
+st.error('Usuarios faltantes:\n\t'+', '.join(missing_reports))
 
 with open('source/Plantilla_documento/main.tex', 'w') as tex_main:
     tex_main.write(tex_main_str)
