@@ -103,10 +103,12 @@ metadata = pd.read_csv('metadata.csv')
 
 section_folders = metadata['Sección'].unique()
 
+status_spinner = st.status('Generando PDF con los informes')
 more_info_view = st.expander('Más información')
 
 report_files = []
 
+status_spinner.write('Buscando los archivos en Drive')
 for folder in section_folders:
     section_files_query = google_tools.list_files_from_path(
         f'{folder}/{selected_date.strftime("%Y-%m-%d")}', drive_service, week_report_folder_id)
@@ -116,7 +118,7 @@ for folder in section_folders:
         report_files += section_files
 
 # st.write(report_files)
-
+status_spinner.write('Editando plantillas')
 with open('source/Plantilla_documento/main.template.tex', 'r') as tex_main:
     tex_main_str = tex_main.read()
 
@@ -128,6 +130,7 @@ with open('source/Plantilla_documento/content.template.tex', 'r') as tex_content
 
 successful_reports = []
 
+status_spinner.write('Agregando tablas por usuario')
 for report in report_files:
     id_name = report['name']
     try:
@@ -138,7 +141,8 @@ for report in report_files:
         st.toast(f'Usuario no encontrado: `{id_name}`')
         more_info_view.warning(f'Usuario no encontrado: `{id_name}`')
     # st.markdown(f'### {report["name"]}')
-    st.markdown(f'- **{full_name}**')
+    # st.markdown(f'- **{full_name}**')
+    status_spinner.write(f'\t- {full_name}')
     google_tools.download_file(report['id'], 'temp_report.xlsx', drive_service, 'xlsx')
     try:
         data = pd.read_excel('temp_report.xlsx', sheet_name=report_type, dtype=str)
@@ -230,6 +234,8 @@ for id in metadata['Usuario']:
 # tex_content.close()
 
 st.error('Usuarios faltantes:\n\t'+', '.join(missing_reports))
+
+status_spinner.write('Compilando el LaTeX')
 
 with open('source/Plantilla_documento/main.tex', 'w') as tex_main:
     tex_main.write(tex_main_str)
